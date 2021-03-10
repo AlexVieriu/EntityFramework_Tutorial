@@ -1,4 +1,49 @@
-﻿-- EF_Data --
+﻿Tutorial: https://www.youtube.com/watch?v=qkJ9keBmQWo&ab_channel=IAmTimCorey
+
+0:00​ - Intro
+3:11​ - Project setup: ASP. NET Core project 
+4:39​ - Project setup: .NET standard library
+6:04​ - Project setup: Adding data models
+11:02​ - Project setup: EF Core SQL server NuGet
+13:01​ - Project setup: Data Access class
+15:26​ - EF Configuration: Startup.cs
+17:43​ - EF Configuration: Connection string
+22:46​ - Migration scripts and concerns
+30:05​ - Migration script: Down command
+31:50​ - Migration script: Up command
+37:19​ - Multiple migrations
+38:46​ - Model snapshot...
+40:10​ - Model snapshot: Nvarchar explained
+45:14​ - Problem: Nvarchar(max): Indexing
+46:49​ - Problem: Nvarchar(max): performance
+50:52​ - ... Model snapshot: why nvarchar(max) ...
+52:13​ - Problem: EF and data access
+53:39​ - ... Model snapshot
+54:58​ - Created Data Base overview
+57:50​ - Data model optimization...
+1:00:48​ - Problem: Development vs production
+1:03:45​ - ... Data model optimization
+1:05:18​ - Possible data loss with new migration for in production app
+1:07:40​ - The updated migration script overview
+1:09:15​ - No data rollback
+1:10:39​ - Data Base update
+1:11:45​ - Using the EF: data import from JSON file
+1:18:34​ - Using the XEventProfiler
+1:23:57​ - Monitoring and filtering SQL server commands from the EF app
+1:27:42​ - How the EF inserts data: sp_executesql
+1:39:11​ - EF query
+1:46:39​ - EF query: efficiency and possible consequences
+1:58:34​ - EF query: where clause: SQL vs C#
+2:10:40​ - Recap: best practices covered in this video
+2:12:08​ - Why use Entity Framework? Supposed benefits
+2:20:12​ - Benefits of using Dapper
+2:25:46​ - Summary and concluding remarks
+
+
+
+-> Add NuGetPackages
+
+-- EF_Data --
 
 Microsoft.EntityFrameworkCore.SqlServer
 
@@ -10,9 +55,44 @@ Microsoft.EntityFrameworkCore.Tools
 
 -- EF_Data --
 
+-> delete the Age property in Person.cs
+
 (chose the Default projects : Ef_Data)
 Package Manager Console:
 -> Add-Migration InitialDBCreation
 
+(EntityFramework buils up our database)
 
--> EntityFramework buils up our database
+
+(36:00)
+-> add back the Age property in Person.cs(it will add a new migration)
+
+protected override void Up(MigrationBuilder migrationBuilder)
+{
+    migrationBuilder.AddColumn<int>(
+        name: "Age",
+        table: "People",
+        type: "int",
+        nullable: false,
+        defaultValue: 0);
+}
+
+protected override void Down(MigrationBuilder migrationBuilder)
+{
+    migrationBuilder.DropColumn(
+        name: "Age",
+        table: "People");
+}
+
+
+-- Ef_Data -> Migrations -> PeopleContextModelSnapshot.cs --
+
+-> this class is for c# developers
+
+nvarchar: UnitCode
+
+
+54:58​ - Created Data Base overview
+
+Package Manager Console
+-> Update-Database 
