@@ -1,0 +1,18 @@
+﻿-- EF_Data --
+
+Microsoft.EntityFrameworkCore.SqlServer
+
+
+-- EF_WebApp --
+
+Microsoft.EntityFrameworkCore.Tools
+
+
+-- EF_Data --
+
+(chose the Default projects : Ef_Data)
+Package Manager Console:
+-> Add-Migration InitialDBCreation
+
+
+-> EntityFramework buils up our database
